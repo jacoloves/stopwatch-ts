@@ -1,0 +1,11 @@
+{
+  "name": "stopwatch-ts",
+  "version": "1.0.0",
+  "description": "stopwatch written in ts",
+  "main": "stopwatch.ts",
+  "author": "shooonng <5511068t@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
