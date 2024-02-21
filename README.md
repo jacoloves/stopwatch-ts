@@ -20,7 +20,7 @@ yarn start
 
 - [ ] Addition of lap times.
 
-- [ ] Inclusion of milliseconds.
+- [x] Inclusion of milliseconds.
 
 - [ ] Disabling the reset button when the stop button is pressed.
 

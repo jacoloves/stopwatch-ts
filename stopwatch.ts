@@ -5,18 +5,19 @@ const startStopBtn = document.getElementById('startStopBtn') as HTMLButtonElemen
 const resetBtn = document.getElementById('resetBtn') as HTMLButtonElement;
 
 function updateTimeDisplay() {
-  const seconds = Math.floor(time / 1000) % 60;
-  const minutes = Math.floor(time / 60000) % 60;
-  const hours = Math.floor(time / 3600000);
-  timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const milliseconds = time % 1000;
+  const seconds = Math.floor((time / 1000) % 60);
+  const minutes = Math.floor((time / 60000) % 60);
+  const hours = Math.floor((time / 3600000));
+  timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
 }
 
 function startTimer() {
   if (!timerId) {
     timerId = setInterval(() => {
-      time += 1000;
+      time += 10;
       updateTimeDisplay();
-    }, 1000);
+    }, 10);
     startStopBtn.textContent = 'Stop';
   } else {
     clearInterval(timerId);
