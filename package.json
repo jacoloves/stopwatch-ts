@@ -12,6 +12,7 @@
     "start": "http-server"
   },
   "dependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "markdown-lint": "^0.0.4"
   }
 }
