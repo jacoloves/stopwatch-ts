@@ -19,7 +19,7 @@ function updateTimeDisplay() {
 
 function startTimer() {
   if (!startTime) {
-    startTime = performance.now() - elapsed;
+    startTime = performance.now();
     timerId = requestAnimationFrame(updateTime);
     startStopBtn.textContent = 'Stop';
     resetBtn.disabled = true;
