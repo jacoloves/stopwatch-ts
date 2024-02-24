@@ -57,10 +57,18 @@ function addLap() {
   lastLapTime = totalElapsed;
 
   const lapTableBody = document.querySelector('#lapTable tbody') as HTMLTableSectionElement;
+
   const lapRow = lapTableBody.insertRow();
+  lapRow.className = "border-b";
+
   const lapCell = lapRow.insertCell();
+  lapCell.className = "px-4 py-2 border";
+
   const lapTimeCell = lapRow.insertCell();
+  lapTimeCell.className = "px-4 py-2 border"
+
   const totalTimeCell = lapRow.insertCell();
+  totalTimeCell.className = "px-4 py-2 border"
 
   lapCell.textContent = String(lapTableBody.rows.length);
   lapTimeCell.textContent = formatTime(lapTime);
