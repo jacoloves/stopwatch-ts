@@ -1,6 +1,7 @@
 let timerId: number | undefined;
 let elapsed: number = 0;
 let startTime: number | undefined;
+let lastLapTime: number = 0;
 const timerDisplay = document.getElementById('timer') as HTMLDivElement;
 const startStopBtn = document.getElementById('startStopBtn') as HTMLButtonElement;
 const resetBtn = document.getElementById('resetBtn') as HTMLButtonElement;
@@ -49,8 +50,34 @@ function resetTimer() {
   lapBtn.disabled = true;
 }
 
+function addLap() {
+  const now = performance.now();
+  const totalElapsed = elapsed + (startTime ? now - startTime : 0);
+  const lapTime = totalElapsed - lastLapTime;
+  lastLapTime = totalElapsed;
+
+  const lapTableBody = document.querySelector('#lapTable tbody') as HTMLTableSectionElement;
+  const lapRow = lapTableBody.insertRow();
+  const lapCell = lapRow.insertCell();
+  const lapTimeCell = lapRow.insertCell();
+  const totalTimeCell = lapRow.insertCell();
+
+  lapCell.textContent = String(lapTableBody.rows.length);
+  lapTimeCell.textContent = formatTime(lapTime);
+  totalTimeCell.textContent = formatTime(totalElapsed);
+}
+
+function formatTime(milliseconds: number) {
+  const seconds = Math.floor((milliseconds / 1000) % 60);
+  const minutes = Math.floor((seconds / 60) % 60);
+  const hours = Math.floor(minutes / 60);
+
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds % 1000).padStart(3, '0')}`;
+}
+
 startStopBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
+lapBtn.addEventListener('click', addLap);
 
 updateTimeDisplay();
 
