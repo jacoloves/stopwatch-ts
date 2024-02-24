@@ -23,15 +23,15 @@ function startTimer() {
     startTime = performance.now();
     timerId = requestAnimationFrame(updateTime);
     startStopBtn.textContent = 'Stop';
-    resetBtn.disabled = true;
-    lapBtn.disabled = false;
+    toggleButtonState(resetBtn, false);
+    toggleButtonState(lapBtn, true);
   } else {
     elapsed += performance.now() - startTime;
     cancelAnimationFrame(timerId);
     startTime = undefined;
     startStopBtn.textContent = 'Start';
-    resetBtn.disabled = false;
-    lapBtn.disabled = true;
+    toggleButtonState(resetBtn, true);
+    toggleButtonState(lapBtn, false);
   }
 }
 
@@ -46,8 +46,8 @@ function resetTimer() {
   elapsed = 0;
   updateTimeDisplay();
   startStopBtn.textContent = 'Start';
-  resetBtn.disabled = false;
-  lapBtn.disabled = true;
+  toggleButtonState(resetBtn, false);
+  toggleButtonState(lapBtn, false);
 }
 
 function addLap() {
@@ -83,6 +83,19 @@ function formatTime(milliseconds: number) {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds % 1000).padStart(3, '0')}`;
 }
 
+function toggleButtonState(button: HTMLButtonElement, isActive: boolean) {
+  if (isActive) {
+    button.classList.replace('bg-gray-500', 'bg-blue-500');
+    button.classList.replace('cursor-not-allowed', 'hover:bg-blue-700');
+    button.disabled = false;
+  } else {
+    button.classList.replace('bg-blue-500', 'bg-gray-500');
+    button.classList.remove('hover:bg-blue-700');
+    button.classList.add('cursor-not-allowed');
+    button.disabled = true;
+  }
+}
+
 startStopBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
 lapBtn.addEventListener('click', addLap);
@@ -90,5 +103,5 @@ lapBtn.addEventListener('click', addLap);
 updateTimeDisplay();
 
 window.onload = () => {
-  lapBtn.disabled = true;
+  toggleButtonState(lapBtn, false);
 };
